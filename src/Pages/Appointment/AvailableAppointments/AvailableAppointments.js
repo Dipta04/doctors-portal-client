@@ -15,7 +15,7 @@ const AvailableAppointments = ({ selectedDate }) => {
         queryKey: ['appointmentOptions', date],
         queryFn: async () => {
             // /v2/appointmentOptions or /appointmentOptions akta dilai hoi
-            const res = await fetch(`http://localhost:5000/v2/appointmentOptions?date=${date}`); 
+            const res = await fetch(`https://doctors-portal-server-roan.vercel.app/v2/appointmentOptions?date=${date}`); 
             const data = await res.json();
             return data
         }
@@ -27,7 +27,7 @@ const AvailableAppointments = ({ selectedDate }) => {
     }
 
     // useEffect(() => {
-    //     fetch('http://localhost:5000/appointmentOptions')
+    //     fetch('https://doctors-portal-server-roan.vercel.app/appointmentOptions')
     //         .then(res => res.json())
     //         .then(data => setAppointmentOptions(data))
     // }, [])
