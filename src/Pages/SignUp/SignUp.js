@@ -8,7 +8,7 @@ import useToken from '../../hooks/useToken';
 const SignUp = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
@@ -41,6 +41,20 @@ const SignUp = () => {
                 setSignUpError(error.message)
             });
     }
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setCreatedUserEmail(user.email);
+            })
+            .catch(error => {
+                console.log(error.message)
+                setSignUpError(error.message);
+            });
+    }
+
 
     const saveUser = (name, email) => {
         const user = { name, email };
@@ -121,7 +135,7 @@ const SignUp = () => {
 
                 <p>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
 
             </div>
         </div>
